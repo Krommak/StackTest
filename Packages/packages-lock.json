@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.leopotam.ecslite": {
+      "version": "https://github.com/Leopotam/ecslite.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8e714f2caf4450757637f1d31001d0961f66288d"
+    },
     "com.unity.collab-proxy": {
       "version": "2.0.0",
       "depth": 0,
