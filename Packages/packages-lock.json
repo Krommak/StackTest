@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "8e714f2caf4450757637f1d31001d0961f66288d"
     },
+    "com.leopotam.ecslite.unityeditor": {
+      "version": "https://github.com/Leopotam/ecslite-unityeditor.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "480dbdfd0d73591f93ca010ea1a52bfa8e4cc06e"
+    },
     "com.unity.collab-proxy": {
       "version": "2.0.0",
       "depth": 0,
