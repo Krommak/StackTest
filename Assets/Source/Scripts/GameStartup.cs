@@ -6,9 +6,9 @@ namespace Game
 {
     sealed class GameStartup : MonoBehaviour
     {
-        EcsWorld _world;
+        private EcsWorld _world;
 
-        IEcsSystems _systems;
+        private IEcsSystems _systems;
 
         [Inject]
         private void Construct(EcsWorld world, IEcsSystems systems)

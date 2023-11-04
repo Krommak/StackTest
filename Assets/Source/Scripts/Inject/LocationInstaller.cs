@@ -1,6 +1,8 @@
 using Game.Ecs.Components;
+using Game.Ecs.Factory;
 using Game.Ecs.Services;
 using Leopotam.EcsLite;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -15,6 +17,8 @@ namespace Game.Inject.Installers
         private Vector3 _spawnPosition;
         [SerializeField]
         private Joystick _joystick;
+        [SerializeField]
+        private PumpkinSpawnSettings _pumpkinSpawnSettings;
 
         private EcsWorld _world;
         private Canvas _canvas;
@@ -30,6 +34,7 @@ namespace Game.Inject.Installers
         {
             BindPlayer();
             BindInputService();
+            BindPumpkins();
         }
 
         private void BindPlayer()
@@ -55,6 +60,44 @@ namespace Game.Inject.Installers
                 .To<Joystick>()
                 .FromInstance(joystick)
                 .AsSingle();
+        }
+
+        private void BindPumpkins()
+        {
+            Container.Bind<PumpkinFactory>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+
+            Container.Bind<PumpkinSpawnSettings>()
+                .FromInstance(_pumpkinSpawnSettings)
+                .AsSingle()
+                .NonLazy();
+        }
+    }
+
+    [Serializable]
+    public class PumpkinSpawnSettings
+    {
+        public GameObject[] PumpkinPrefabs;
+
+        [SerializeField]
+        private bool _isFixedSpawnTime;
+
+        [SerializeField]
+        private float _spawnTime;
+
+        [SerializeField]
+        private float _minRandomSpawn;
+        [SerializeField]
+        private float _maxRandomSpawn;
+
+        public float GetSpawnTime()
+        {
+            if (_isFixedSpawnTime)
+                return _spawnTime;
+
+            return UnityEngine.Random.Range(_minRandomSpawn, _maxRandomSpawn);
         }
     }
 }

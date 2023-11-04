@@ -212,6 +212,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c44d52240a949e34593944dbf3b6a198, type: 3}
+--- !u!1 &288449215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 288449216}
+  - component: {fileID: 288449217}
+  m_Layer: 0
+  m_Name: EcsSystemsInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &288449216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288449215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 698757356}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &288449217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288449215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b039b3ab8ce4ce747901141ee46c2c40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &576255122
 GameObject:
   m_ObjectHideFlags: 0
@@ -287,6 +331,7 @@ Transform:
   m_Children:
   - {fileID: 1138977290}
   - {fileID: 1114345601}
+  - {fileID: 288449216}
   m_Father: {fileID: 72018087}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -306,6 +351,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 1138977291}
   - {fileID: 1114345602}
+  - {fileID: 288449217}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -666,6 +712,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerUnit: {fileID: 140222, guid: d8ba3a7118f02b54ab59c956f5e3030a, type: 3}
   _spawnPosition: {x: 0, y: 0, z: 0}
+  _joystick: {fileID: 8135886326569738823, guid: 56fae09712773584fb63896d473a98ee, type: 3}
+  _pumpkinSpawnSettings:
+    PumpkinPrefabs:
+    - {fileID: 105112, guid: c51bbaed41413894497f5674bfc81d7f, type: 3}
+    - {fileID: 158040, guid: e0540b9a068bf844d9aee78477f2c6a7, type: 3}
+    - {fileID: 178978, guid: 6a24b2fdb94879649a7fc6693dfa9ceb, type: 3}
+    - {fileID: 172320, guid: 4ca2889cc78846349986e2e386fe0c83, type: 3}
+    - {fileID: 112988, guid: 86ec5467c18ce4e46832caff85f31910, type: 3}
+    - {fileID: 105858, guid: 81a641ce4f3e2cc4db4a8f838e10182f, type: 3}
+    _isFixedSpawnTime: 0
+    _spawnTime: 3
+    _minRandomSpawn: 5
+    _maxRandomSpawn: 10
 --- !u!1 &1138977289
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,7 +736,7 @@ GameObject:
   - component: {fileID: 1138977290}
   - component: {fileID: 1138977291}
   m_Layer: 0
-  m_Name: EcsInstaller
+  m_Name: EcsWorldInstaller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -610,7 +610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 412966}
   - component: {fileID: 13703824}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SC_Character_Witch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
