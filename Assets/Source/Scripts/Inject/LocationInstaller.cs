@@ -1,6 +1,6 @@
 using Game.Ecs.Components;
+using Game.Ecs.Services;
 using Leopotam.EcsLite;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,6 +13,8 @@ namespace Game.Inject.Installers
         private GameObject _playerUnit;
         [SerializeField]
         private Vector3 _spawnPosition;
+        [SerializeField]
+        private Joystick _joystick;
 
         private EcsWorld _world;
         private Canvas _canvas;
@@ -27,6 +29,7 @@ namespace Game.Inject.Installers
         public override void InstallBindings()
         {
             BindPlayer();
+            BindInputService();
         }
 
         private void BindPlayer()
@@ -43,6 +46,15 @@ namespace Game.Inject.Installers
             ref var view = ref viewPool.Add(entity);
             view.Value = playerInstance.transform;
             _world.GetPool<PlayerComponent>().Add(entity);
+        }
+
+        private void BindInputService()
+        {
+            var joystick = Container.InstantiatePrefabForComponent<Joystick>(_joystick, _canvas.transform);
+            Container.Bind<IInputService>()
+                .To<Joystick>()
+                .FromInstance(joystick)
+                .AsSingle();
         }
     }
 }

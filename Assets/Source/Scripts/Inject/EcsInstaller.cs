@@ -1,3 +1,4 @@
+using Game.Ecs.Systems;
 using Leopotam.EcsLite;
 using Zenject;
 
@@ -31,6 +32,7 @@ namespace Game.Inject
 #if UNITY_EDITOR
                 .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
+                .Add(Container.Instantiate<MovementSystem>())
                 .Init();
 
             Container.Bind<IEcsSystems>()

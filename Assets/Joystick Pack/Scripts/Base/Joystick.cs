@@ -1,11 +1,16 @@
-﻿using UnityEngine;
+﻿using Game.Ecs.Services;
+using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IInputService
 {
     public float Horizontal { get { return (snapX) ? SnapFloat(input.x, AxisOptions.Horizontal) : input.x; } }
     public float Vertical { get { return (snapY) ? SnapFloat(input.y, AxisOptions.Vertical) : input.y; } }
     public Vector2 Direction { get { return new Vector2(Horizontal, Vertical); } }
+
+    float IInputService.Vertical { get => Vertical; set => throw new NotImplementedException(); }
+    float IInputService.Horizontal { get => Horizontal; set => throw new NotImplementedException(); }
 
     public float HandleRange
     {
