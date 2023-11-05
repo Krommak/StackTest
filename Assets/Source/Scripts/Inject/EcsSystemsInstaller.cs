@@ -26,7 +26,11 @@ public class EcsSystemsInstaller : MonoInstaller
             .Add(new Leopotam.EcsLite.UnityEditor.EcsWorldDebugSystem())
 #endif
             .Add(Container.Instantiate<MovementSystem>())
+            .Add(Container.Instantiate<CameraMovementSystem>())
             .Add(Container.Instantiate<PumpkinSpawnSystem>())
+            .Add(Container.Instantiate<AnimationSystem>())
+            .Add(Container.Instantiate<StackSystem>())
+            .Add(Container.Instantiate<CollectStackSystem>())
             .Init();
 
         Container.Bind<IEcsSystems>()

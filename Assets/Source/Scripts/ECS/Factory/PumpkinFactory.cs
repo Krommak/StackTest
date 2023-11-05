@@ -1,6 +1,4 @@
-using Game.Ecs.Components;
 using Game.Inject.Installers;
-using Leopotam.EcsLite;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,18 +8,16 @@ namespace Game.Ecs.Factory
 {
     public class PumpkinFactory : IDisposable
     {
-        private List<Pumpkin> _pumpkins;
-        private EcsWorld _world;
+        private Dictionary<Transform, Pumpkin> _pumpkins;
         private GameObject[] _pumpkinsPrefabs;
         private Transform _containerForDisable;
 
         [Inject]
-        public PumpkinFactory(EcsWorld world, PumpkinSpawnSettings spawnSettings)
+        public PumpkinFactory(PumpkinSpawnSettings spawnSettings)
         {
-            _world = world;
             _pumpkinsPrefabs = spawnSettings.PumpkinPrefabs;
 
-            _pumpkins = new List<Pumpkin>();
+            _pumpkins = new Dictionary<Transform, Pumpkin>();
             _containerForDisable = new GameObject("PoolOfPumpkins").transform;
         }
 
@@ -29,25 +25,21 @@ namespace Game.Ecs.Factory
         {
             foreach (var item in _pumpkins)
             {
-                if(!item.IsActive)
+                if(!item.Value.IsActive)
                 {
-                    item.Enable(parent);
+                    item.Value.Enable(parent);
                     return;
                 }
             }
             CreateNewPumpkin(parent);
         }
 
-        public void Return(int entity)
+        public void Return(Transform transform)
         {
-            _pumpkins.ForEach(x=>
+            if(_pumpkins.ContainsKey(transform))
             {
-                if(x.Object.activeInHierarchy && x.CompareEntity(entity))
-                {
-                    x.Disable(_containerForDisable);
-                    return;
-                }
-            });
+                _pumpkins[transform].Disable(_containerForDisable);
+            }
         }
 
         public void Dispose()
@@ -57,52 +49,39 @@ namespace Game.Ecs.Factory
 
         private void CreateNewPumpkin(Transform parent)
         {
-            _pumpkins.Add(new Pumpkin(
+            var newPumpkin = new Pumpkin(
                 _pumpkinsPrefabs[UnityEngine.Random.Range(0, _pumpkinsPrefabs.Length)],
-                _world,
-                parent));
+                parent);
+            _pumpkins.Add(newPumpkin.Object.transform, newPumpkin);
         }
 
         private class Pumpkin
         {
             public GameObject Object { get; private set; }
-            public EcsPackedEntity Entity { get; private set; }
             public bool IsActive => Object.activeInHierarchy;
-            private EcsWorld _world { get; set; }
 
-            public Pumpkin(GameObject gameObject, EcsWorld world, Transform parent)
+            public Pumpkin(GameObject gameObject, Transform parent)
             {
                 Object = GameObject.Instantiate(gameObject, parent);
-                _world = world;
                 Enable(parent);
             }
 
             public void Enable(Transform parent)
             {
                 Object.transform.parent = parent;
+                Object.transform.position = Vector3.zero;
+                Object.transform.localPosition = Vector3.zero;
                 Object.SetActive(true);
-
-                var entity = _world.NewEntity();
-                ref var viewComponent = ref _world.GetPool<View>().Add(entity);
-                viewComponent.Value = Object.transform;
-                Entity = _world.PackEntity(entity);
-            }
-
-            public bool CompareEntity(int otherEntity)
-            {
-                if (Entity.Unpack(_world, out var entity))
-                    return entity == otherEntity;
-
-                return false;
             }
 
             public void Disable(Transform poolTransform)
             {
-                if(Entity.Unpack(_world, out var entity))
-                    _world.DelEntity(entity);
-
                 Object.transform.parent = poolTransform;
+                Object.transform.localScale = Vector3.one;
                 Object.transform.position = Vector3.zero;
+                Object.transform.localPosition = Vector3.zero;
+                Object.transform.eulerAngles = Vector3.zero;
+
                 Object.SetActive(false);
             }
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Game.Ecs.Components
@@ -14,5 +15,11 @@ namespace Game.Ecs.Components
     struct MoveToStack
     {
         internal Transform Value;
+        internal Action OnApplyAction;
+    }
+
+    struct CollectStack
+    {
+        internal Transform TargetPosition;
     }
 }

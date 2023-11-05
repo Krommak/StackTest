@@ -37,10 +37,8 @@ namespace Game.MonoBehaviours
             var moveToStack = _world.NewEntity();
             ref var component = ref _world.GetPool<MoveToStack>().Add(moveToStack);
             var pumpkin = transform.GetChild(0);
-            pumpkin.parent = null;
             component.Value = pumpkin;
-
-            NewPumpkin();
+            component.OnApplyAction = () => NewPumpkin();
         }
 
         private void NewPumpkin()

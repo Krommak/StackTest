@@ -1,4 +1,3 @@
-using Game.Ecs.Systems;
 using Leopotam.EcsLite;
 using Zenject;
 

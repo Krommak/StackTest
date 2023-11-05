@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 497190}
   - component: {fileID: 3345072}
   - component: {fileID: 2331978}
+  - component: {fileID: 1435504455}
   m_Layer: 0
   m_Name: SC_Halloween_WitchesCauldron 1
   m_TagString: Untagged
@@ -83,3 +84,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1435504455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a1d663dec97e364f97b29940a7605f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
